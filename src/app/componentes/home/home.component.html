@@ -1,0 +1,103 @@
+<div class="principal-container">
+  <div class="image-container">
+    <img src="assets/bg-cafe.jpg" alt="Cafeteria" />
+  </div>
+
+  <div class="product-container">
+    <h1>Our Collection</h1>
+    <p class="description">
+      Introducing our Coffee Collection, a selection of unique coffees from
+      different roast types and origins, expertly roasted in small batches and
+      shipped fresh weekly.
+    </p>
+    <img src="assets/vector.svg" class="vector" />
+
+    <div class="btns-select">
+      <input
+        type="radio"
+        name="my-input"
+        id="yes"
+        class="options"
+        value="opcion1"
+        [(ngModel)]="selectedOption"
+      />
+      <label for="yes" class="options-label">All Products</label>
+
+      <input
+        type="radio"
+        name="my-input"
+        id="no"
+        class="options"
+        value="opcion2"
+        [(ngModel)]="selectedOption"
+      />
+      <label for="no" class="options-label">Available Now</label>
+    </div>
+
+    <div class="product-cards">
+      <ng-container *ngIf="selectedOption == 'opcion1'">
+        <div class="product-card" *ngFor="let coffee of coffeeList">
+          <p class="rating" *ngIf="coffee.popular">Popular</p>
+          <img src="{{ coffee.image }}" class="product-photo" />
+          <div class="product-content">
+            <p class="product-name">{{ coffee.name }}</p>
+            <p class="product-price">{{ coffee.price }}</p>
+          </div>
+          <div class="product-content">
+            <img
+              *ngIf="coffee.rating !== 0 && coffee.rating !== null"
+              src="assets/Star_fill.svg"
+              alt=""
+            />
+            <img *ngIf="coffee.votes === 0" src="assets/Star.svg" alt="" />
+            <ng-template #noRating>No ratings</ng-template>
+
+            <p class="product-rate">{{ coffee.rating }}</p>
+            <p class="product-votes">
+              {{
+                coffee.rating !== null
+                  ? "(" + coffee.votes + " votes)"
+                  : "No ratings"
+              }}
+            </p>
+            <p class="product-availability" *ngIf="!coffee.available">
+              Sold out
+            </p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="selectedOption == 'opcion2'">
+        <div class="product-card" *ngFor="let coffee of filteredCoffeeList">
+          <p class="rating" *ngIf="coffee.popular">Popular</p>
+          <img src="{{ coffee.image }}" class="product-photo" />
+          <div class="product-content">
+            <p class="product-name">{{ coffee.name }}</p>
+            <p class="product-price">{{ coffee.price }}</p>
+          </div>
+          <div class="product-content">
+            <img
+              *ngIf="coffee.rating !== 0 && coffee.rating !== null"
+              src="assets/Star_fill.svg"
+              alt=""
+            />
+            <img *ngIf="coffee.votes === 0" src="assets/Star.svg" alt="" />
+            <ng-template #noRating>No ratings</ng-template>
+
+            <p class="product-rate">{{ coffee.rating }}</p>
+            <p class="product-votes">
+              {{
+                coffee.rating !== null
+                  ? "(" + coffee.votes + " votes)"
+                  : "No ratings"
+              }}
+            </p>
+            <p class="product-availability" *ngIf="!coffee.available">
+              Sold out
+            </p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
